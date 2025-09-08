@@ -1,0 +1,36 @@
+# === Dotnet / Visual Studio ===
+.vs/
+*.user
+*.suo
+*.db
+*.db-shm
+*.db-wal
+*.dtbcache.v2
+*.vsidx
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Dd]ebug/
+[Rr]elease/
+[Tt]estResults/
+*.pidb
+*.svclog
+*.ide/
+
+# === Node / React ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# === IDE settings ===
+.vscode/
+.idea/
+
+# === Build outputs ===
+dist/
+build/
+
+# === Others ===
+.env
