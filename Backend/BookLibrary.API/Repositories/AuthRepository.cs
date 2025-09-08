@@ -1,6 +1,7 @@
 ﻿using BookLibrary.Data;
 using BookLibrary.IRepositories;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLibrary.Repositories
 {
@@ -22,14 +23,15 @@ namespace BookLibrary.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> CreateUser(User user)
+        public Task<bool> DeleteUser(User user)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteUser(User user)
+        public async Task<User> GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return user;
         }
 
         public Task<bool> UpdateRefreshToken(RefreshToken refreshToken)
