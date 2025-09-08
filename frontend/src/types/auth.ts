@@ -14,8 +14,8 @@ export interface UserInfor{
 }
 
 export interface LoginApiResponse{
-    token : string;
-    refreshToke : string;
+    accessToken : string;
+    refreshToken : string;
     expToken : number;
     userInfor : UserInfor;
 }
@@ -30,6 +30,7 @@ export interface ResgisterCre{
 }
 
 export interface RefreshTokenRequest {
+  accessToken: string;
   refreshToken: string;
 }
 

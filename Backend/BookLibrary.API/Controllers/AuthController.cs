@@ -1,7 +1,7 @@
-﻿using BookLibrary.API.Features.Auth.Login;
+﻿using BookLibrary.API.Features.Auth.GetRefreshToken;
+using BookLibrary.API.Features.Auth.Login;
 using BookLibrary.API.Features.Auth.Register;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookLibrary.API.Controllers
@@ -30,6 +30,20 @@ namespace BookLibrary.API.Controllers
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginCommand request)
+        {
+            try
+            {
+                var result = await _mediator.Send(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost("refreshToken")]
+        public async Task<IActionResult> RefresNewToken([FromBody] RefreshTokenCommand request)
         {
             try
             {
