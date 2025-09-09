@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import type { AuthError, ResgisterCre } from "../types/auth";
-import { authService } from "../services/authService";
+import type { AuthError, ResgisterCre } from "../../types/auth";
+import { authService } from "../../services/authService";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import type { AxiosError } from "axios";
-import FormInput from "../components/FormInputs";
-import FormSelect from "../components/FormSelect";
+import FormInput from "../../components/FormInputs";
+import FormSelect from "../../components/FormSelect";
 
 const RegisterPage: React.FC = () => {
     const{register, handleSubmit, formState: {errors, isSubmitting},} = useForm<ResgisterCre>();

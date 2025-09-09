@@ -1,9 +1,9 @@
-import { authService } from "../services/authService";
-import type {LoginCre } from "../types/auth";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import FormInput from "../components/FormInputs";
+import type { LoginCre } from "../../types/auth";
+import { authService } from "../../services/authService";
+import FormInput from "../../components/FormInputs";
 
 const LoginPage: React.FC = () => {
   const {register,handleSubmit,formState: { errors, isSubmitting },} = useForm<LoginCre>();

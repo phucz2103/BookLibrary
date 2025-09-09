@@ -58,13 +58,13 @@ namespace BookLibrary.API.Controllers
             }
         }
 
-        [HttpPost("request-otp")]
+        [HttpPost("reques-reset-password")]
         public async Task<IActionResult> RequestOTP([FromBody] RequestOTPCommand request)
         {
             try
             {
                 var result = await _mediator.Send(request);
-                return result ==true ? Ok("OTP đã được gửi về email của bạn") : BadRequest("Lỗi OTP");
+                return result ==true ? Ok("thông báo đã được gửi về email của bạn") : BadRequest("Lỗi");
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -76,21 +76,7 @@ namespace BookLibrary.API.Controllers
             }
         }
 
-        [HttpPost("verify-otp")]
-        public async Task<IActionResult> VerifyOTP([FromBody] VerifyOTPCommand request)
-        {
-            try
-            {
-                var result = await _mediator.Send(request);
-                return Ok(new { success = true, resetPasswordToken = result });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, new { success = false, message = ex.Message });
-            }
-        }
-
-        [HttpPost("forgot-password")]
+        [HttpPost("reset-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommand request)
         {
             try

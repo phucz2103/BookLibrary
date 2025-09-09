@@ -42,3 +42,15 @@ export interface AuthError {
   message: string;
 }
 
+export interface ForgotPasswordRequest {
+  Email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export type authResponse = LoginApiResponse | AuthError
+

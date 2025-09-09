@@ -52,6 +52,26 @@ export const authService = {
         }
     },
 
+    async forgotPassword(email: string): Promise<void> {
+        try {
+            await axios.post<void>(`${API_BASE_URL}/verify-otp`, { email });  
+        } catch (error) {
+            const axiosError = error as AxiosError<AuthError>;
+            console.error('Lỗi khi gửi yêu cầu quên mật khẩu:', axiosError);
+            throw new Error(axiosError.response?.data.message || 'Yêu cầu quên mật khẩu thất bại');
+        }
+    },
+
+    async resetPassword(token: string, newPassword: string, confirmNewPassword: string): Promise<void> {
+        try {
+            await axios.post<void>(`${API_BASE_URL}/reset-password`, { token, newPassword, confirmNewPassword });
+        } catch (error) {
+            const axiosError = error as AxiosError<AuthError>;
+            console.error('Lỗi khi đặt lại mật khẩu:', axiosError);
+            throw new Error(axiosError.response?.data.message || 'Đặt lại mật khẩu thất bại');
+        }
+    },
+
     saveToken({accessToken, refreshToken} : LoginApiResponse) : void {
         localStorage.setItem('accessToken',accessToken);
         localStorage.setItem('refreshToken',refreshToken);
@@ -65,8 +85,9 @@ export const authService = {
     return localStorage.getItem('refreshToken');
     },
 
-  clearTokens(): void {
+    clearTokens(): void {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-  },
+    },
+
 }

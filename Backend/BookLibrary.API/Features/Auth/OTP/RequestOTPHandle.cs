@@ -30,34 +30,28 @@ namespace BookLibrary.API.Features.Auth.OTP
             {
                 return true;
             }
+            var resetPasswordToken = Guid.NewGuid().ToString();
+            _memoryCache.Set($"resetPasswordToken:{resetPasswordToken}", request.Email, TimeSpan.FromMinutes(15));
 
-            var otpCode = GenerateStringHelper.GenerateOTP();
+            var resetLink = $"https://yourdomain.com/reset-password?token={resetPasswordToken}";
+            var subject = "Yêu cầu đặt lại mật khẩu - Thư viện XP";
+            var message = $@"
+            <p>Xin chào,</p>
+            <p>Bạn đã yêu cầu đặt lại mật khẩu.</p>
+            <p>Nhấn vào liên kết sau để đặt lại mật khẩu:</p>
+            <p><a href='{resetLink}' style='color:blue;font-size:16px;'>{resetLink}</a></p>
+            <p>Liên kết này sẽ hết hạn sau <strong>15 phút</strong>.</p>
+            <p>Trân trọng,<br><b>Thư viện XP</b></p>";
 
-            var subject = "Xác thực OTP từ thư viện XP";
-
-            var messasge = $@"
-                                  <p>Xin chào,</p>
-                                  <p>Bạn đã yêu cầu xác thực bằng mã OTP.</p>
-                                  <p><strong>Mã OTP của bạn là:</strong> <b style='font-size: 18px; color: blue;'>{otpCode}</b></p>
-                                  <p>Mã này sẽ hết hạn sau <strong>5 phút</strong>. Vui lòng không chia sẻ mã với bất kỳ ai.</p>
-                                  <p>Trân trọng,<br><b>Thư viện XP</b></p>";
             try
             {
-                await _emailService.SendEmailAsync(request.Email, subject, messasge);
+                await _emailService.SendEmailAsync(request.Email, subject, message);
+                return true;
             }
             catch (Exception ex)
             {
                 throw new Exception("Gửi email thất bại: " + ex.Message);
             }
-
-            var otp = new OTPdto
-            {
-                Email = request.Email,
-                Code = otpCode,
-                ExpiryTime = DateTime.Now.AddMinutes(5)
-            };
-            _memoryCache.Set($"otp:{request.Email}", otp, TimeSpan.FromMinutes(5));
-            return true;
         }
     }
 }
