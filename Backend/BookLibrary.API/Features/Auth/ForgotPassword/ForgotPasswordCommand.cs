@@ -4,8 +4,8 @@ namespace BookLibrary.API.Features.Auth.ForgotPassword
 {
     public class ForgotPasswordCommand : IRequest<string>
     {
-        public string NewPassword { get; set; }
-        public string ConfirmPassword { get; set; }
-        public string ResetPasswordToken { get; set; }
+        public string newPassword { get; set; }
+        public string confirmNewPassword { get; set; }
+        public string token { get; set; }
     }
 }

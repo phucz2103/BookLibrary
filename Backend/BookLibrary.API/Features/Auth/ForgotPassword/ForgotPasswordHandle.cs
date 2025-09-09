@@ -22,15 +22,15 @@ namespace BookLibrary.API.Features.Auth.ForgotPassword
         public async Task<string> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
         {
 
-            var cacheKey = $"resetPasswordToken:{request.ResetPasswordToken}";
+            var cacheKey = $"resetPasswordToken:{request.token}";
             if (!_memoryCache.TryGetValue(cacheKey, out string email))
                 throw new Exception("Liên kết đã hết hạn hoặc không hợp lệ");
 
-                if (!FormatHelper.IsValidPassword(request.NewPassword))
+                if (!FormatHelper.IsValidPassword(request.newPassword))
                 {
                     throw new Exception("Password không hợp lệ!");
                 }
-                if (request.NewPassword != request.ConfirmPassword)
+                if (request.newPassword != request.confirmNewPassword)
                 {
                     throw new Exception("Xác nhận mật khẩu không khớp!");
                 }
@@ -40,9 +40,9 @@ namespace BookLibrary.API.Features.Auth.ForgotPassword
                     throw new Exception("Không tìm thấy người dùng");
                 }
                 var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var result = await _userManager.ResetPasswordAsync(user, resetToken, request.NewPassword);
+                var result = await _userManager.ResetPasswordAsync(user, resetToken, request.newPassword);
 
-                _memoryCache.Remove($"resetPasswordToken:{request.ResetPasswordToken}");
+                _memoryCache.Remove($"resetPasswordToken:{request.token}");
 
                 if (result.Succeeded)
                 {

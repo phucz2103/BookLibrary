@@ -1,7 +1,6 @@
 ﻿using BookLibrary.API.Features.Auth.ForgotPassword;
 using BookLibrary.API.Features.Auth.GetRefreshToken;
 using BookLibrary.API.Features.Auth.Login;
-using BookLibrary.API.Features.Auth.OTP;
 using BookLibrary.API.Features.Auth.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -58,8 +57,8 @@ namespace BookLibrary.API.Controllers
             }
         }
 
-        [HttpPost("reques-reset-password")]
-        public async Task<IActionResult> RequestOTP([FromBody] RequestOTPCommand request)
+        [HttpPost("request-reset-password")]
+        public async Task<IActionResult> RequestOTP([FromBody] RequestResetPasswordCommand request)
         {
             try
             {

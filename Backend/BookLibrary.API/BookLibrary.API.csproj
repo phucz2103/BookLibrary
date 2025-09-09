@@ -33,4 +33,8 @@
 		<ProjectReference Include="..\BookLibrary.Domain\BookLibrary.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\Auth\OTP\" />
+	</ItemGroup>
+
 </Project>
