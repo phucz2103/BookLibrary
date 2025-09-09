@@ -19,12 +19,17 @@ namespace BookLibrary.API.Features.Auth.Register
 
         public async Task<bool> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
+
             if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Address))
                 throw new Exception("Vui lòng nhập thông tin bắt buộc!");
+            if (request.Username.Length < 6 )
+                throw new Exception("Tên tài khoản có ít nhất 6 ký tự!");
             var existingUser = await _userManager.FindByNameAsync(request.Username);
             if (existingUser != null) throw new Exception("Tài khoản đã tồn tại!");
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
             if (existingEmail != null) throw new Exception("Email đã được sử dụng!");
+            var existingPhone = await _authRepo.GetUserByPhone(request.PhoneNumber);
+            if (existingPhone != null) throw new Exception("Số điện thoại đã được sử dụng!");
 
             var newUser = new User
             {

@@ -34,6 +34,12 @@ namespace BookLibrary.Repositories
             return user;
         }
 
+        public async Task<User> GetUserByPhone(string phone)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phone);
+            return user;
+        }
+
         public Task<bool> UpdateRefreshToken(RefreshToken refreshToken)
         {
             throw new NotImplementedException();
