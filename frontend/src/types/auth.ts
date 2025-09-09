@@ -28,6 +28,7 @@ export interface ResgisterCre{
     Address : string
     PhoneNumber : string
     DOB : Date
+    Role : UserRole
     Password : string
     ConfirmPassword : string
 }
