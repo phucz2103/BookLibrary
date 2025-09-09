@@ -1,5 +1,6 @@
 ﻿using BookLibrary.API.Helper;
 using BookLibrary.API.IService;
+using BookLibrary.IRepositories;
 using BookLibrary.Repositories;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
@@ -8,10 +9,10 @@ namespace BookLibrary.API.Features.Auth.OTP
 {
     public class RequestOTPHandle : IRequestHandler<RequestOTPCommand, bool>
     {
-        private readonly AuthRepository _authRepo;
+        private readonly IAuthRepository _authRepo;
         private readonly IEmailService _emailService;
         private readonly IMemoryCache _memoryCache;
-        public RequestOTPHandle(AuthRepository authRepo, IEmailService emailService, IMemoryCache memoryCache)
+        public RequestOTPHandle(IAuthRepository authRepo, IEmailService emailService, IMemoryCache memoryCache)
         {
             _authRepo = authRepo;
             _emailService = emailService;
@@ -55,7 +56,7 @@ namespace BookLibrary.API.Features.Auth.OTP
                 Code = otpCode,
                 ExpiryTime = DateTime.Now.AddMinutes(5)
             };
-            _memoryCache.Set($"OTP_{request.Email}", otp, otp.ExpiryTime - DateTime.Now);
+            _memoryCache.Set($"otp:{request.Email}", otp, TimeSpan.FromMinutes(5));
             return true;
         }
     }

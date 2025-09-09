@@ -13,7 +13,7 @@ namespace BookLibrary.API.Features.Auth.OTP
         public async Task<string> Handle(VerifyOTPCommand request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(request.OTP)) throw new Exception("Mã OTP không được để trống!");
-            if (_memoryCache.TryGetValue($"OTP_{request.Email}", out OTPdto cachedOtp))
+            if (_memoryCache.TryGetValue($"otp:{request.Email}", out OTPdto cachedOtp))
             {
                 if (cachedOtp.Code == request.OTP && cachedOtp.ExpiryTime > DateTime.Now)
                 {

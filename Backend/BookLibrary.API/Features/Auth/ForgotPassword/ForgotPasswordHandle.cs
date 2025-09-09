@@ -1,4 +1,5 @@
 ﻿using BookLibrary.API.Helper;
+using BookLibrary.IRepositories;
 using BookLibrary.Repositories;
 using Domain.Entities;
 using MediatR;
@@ -9,10 +10,10 @@ namespace BookLibrary.API.Features.Auth.ForgotPassword
 {
     public class ForgotPasswordHandle : IRequestHandler<ForgotPasswordCommand, string>
     {
-        private readonly AuthRepository _authRepo;
+        private readonly IAuthRepository _authRepo;
         private readonly IMemoryCache _memoryCache;
         private readonly UserManager<User> _userManager;
-        public ForgotPasswordHandle(AuthRepository authRepo, IMemoryCache memoryCache, UserManager<User> userManager)
+        public ForgotPasswordHandle(IAuthRepository authRepo, IMemoryCache memoryCache, UserManager<User> userManager)
         {
             _authRepo = authRepo;
             _memoryCache = memoryCache;
