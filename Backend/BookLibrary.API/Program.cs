@@ -1,4 +1,6 @@
-﻿using BookLibrary.Data;
+﻿using BookLibrary.API.IService;
+using BookLibrary.API.Service;
+using BookLibrary.Data;
 using BookLibrary.IRepositories;
 using BookLibrary.IService;
 using BookLibrary.Repositories;
@@ -15,6 +17,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 // 1. Add DbContext MySQL
 // Add DbContext MySQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -104,8 +108,9 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 });
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
 
+builder.Services.AddHttpContextAccessor();
 
 // Controllers
 builder.Services.AddControllers();
