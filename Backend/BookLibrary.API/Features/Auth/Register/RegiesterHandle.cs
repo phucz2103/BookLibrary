@@ -34,6 +34,7 @@ namespace BookLibrary.API.Features.Auth.Register
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,
                 DateOfBirth = request.DateOfBirth,
+                CreatedAt = DateTime.Now
             };
             var createUser = await _userManager.CreateAsync(newUser, request.Password);
             if (!createUser.Succeeded) throw new Exception("Đăng ký không thành công, vui lòng thử lại!");

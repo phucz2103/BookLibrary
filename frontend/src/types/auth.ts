@@ -14,10 +14,11 @@ export interface UserInfor{
 }
 
 export interface LoginApiResponse{
-    token : string;
-    refreshToke : string;
-    expToken : number;
-    userInfor : UserInfor;
+    accessToken : string;
+    refreshToken : string;
+    role : string;
+    userId : string;
+    success : boolean;
 }
 
 export interface ResgisterCre{
@@ -27,9 +28,13 @@ export interface ResgisterCre{
     Address : string
     PhoneNumber : string
     DOB : Date
+    Role : UserRole
+    Password : string
+    ConfirmPassword : string
 }
 
 export interface RefreshTokenRequest {
+  accessToken: string;
   refreshToken: string;
 }
 
