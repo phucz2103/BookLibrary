@@ -16,8 +16,9 @@ export interface UserInfor{
 export interface LoginApiResponse{
     accessToken : string;
     refreshToken : string;
-    expToken : number;
-    userInfor : UserInfor;
+    role : string;
+    userId : string;
+    success : boolean;
 }
 
 export interface ResgisterCre{
@@ -27,6 +28,8 @@ export interface ResgisterCre{
     Address : string
     PhoneNumber : string
     DOB : Date
+    Password : string
+    ConfirmPassword : string
 }
 
 export interface RefreshTokenRequest {

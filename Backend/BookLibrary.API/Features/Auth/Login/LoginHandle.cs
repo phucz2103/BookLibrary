@@ -52,6 +52,7 @@ namespace BookLibrary.API.Features.Auth.Login
             var response = new LoginResponse
             {
                 Success = true,
+                userID = user.Id,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken,
                 Role = userRole.FirstOrDefault() ?? "User"
