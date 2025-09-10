@@ -35,6 +35,10 @@ export const authService = {
     }
   },
 
+  async logout(): Promise<void> {
+    TokenUtils.clearTokenData();
+  },
+
   async register(resgisterData: ResgisterCre): Promise<void> {
     try {
       const response = await axios.post<void>(

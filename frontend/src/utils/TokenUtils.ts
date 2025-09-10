@@ -4,7 +4,7 @@ export interface JWTPayload {
   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": string;
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname": string;
-  "role_table_id": string;
+  role_table_id: string;
   exp: number;
   iss: string;
   aud: string;
@@ -49,9 +49,10 @@ export class TokenUtils {
         role: parsedPayload[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ],
-        givenname: parsedPayload[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
-        ],
+        givenname:
+          parsedPayload[
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
+          ],
         exp: parsedPayload.exp,
         iss: parsedPayload.iss,
         aud: parsedPayload.aud,
@@ -134,7 +135,7 @@ export class TokenUtils {
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
 
-      window.dispatchEvent(new Event('authChange'));
+      window.dispatchEvent(new Event("authChange"));
 
       return true;
     } catch {
@@ -145,47 +146,46 @@ export class TokenUtils {
   /**
    * Save token for Google OAuth
    */
-//   static saveGoogleAuthToken(token: string, refreshToken?: string): boolean {
-//     try {
-//       const decoded = this.decodeToken(token);
-//       if (!decoded) return false;
-//       sessionStorage.removeItem('chatbot-messages');
+  //   static saveGoogleAuthToken(token: string, refreshToken?: string): boolean {
+  //     try {
+  //       const decoded = this.decodeToken(token);
+  //       if (!decoded) return false;
+  //       sessionStorage.removeItem('chatbot-messages');
 
-//       localStorage.setItem("authToken", token);
-//       if (refreshToken) {
-//         localStorage.setItem("refreshToken", refreshToken);
-//       }
+  //       localStorage.setItem("authToken", token);
+  //       if (refreshToken) {
+  //         localStorage.setItem("refreshToken", refreshToken);
+  //       }
 
-//       window.dispatchEvent(new Event('authChange'));
+  //       window.dispatchEvent(new Event('authChange'));
 
-//       return true;
-//     } catch {
-//       console.error("Error saving Google auth token");
-//       return false;
-//     }
-//   }
+  //       return true;
+  //     } catch {
+  //       console.error("Error saving Google auth token");
+  //       return false;
+  //     }
+  //   }
   /**
    * Get user data from localStorage (decode from token)
    */
   static getUserData(): {
     token: string | null;
     userId: string | null;
-    username: string | null;
     fullName: string | null;
     role: string | null;
     refreshToken: string | null;
   } {
-    const token = localStorage.getItem("token") || localStorage.getItem("authToken"); //authToken for Google OAuth
+    const token =
+      localStorage.getItem("token") || localStorage.getItem("authToken"); //authToken for Google OAuth
     const refreshToken = localStorage.getItem("refreshToken");
-    
+
     if (!token) {
       return {
         token: null,
         userId: null,
-        username: null,
         fullName: null,
         role: null,
-        refreshToken
+        refreshToken,
       };
     }
 
@@ -196,41 +196,39 @@ export class TokenUtils {
         token,
         userId: null,
         fullName: null,
-        username: null,
         role: null,
-        refreshToken
+        refreshToken,
       };
     }
 
     return {
       token,
       userId: decoded.userId,
-      username: decoded.username,
       fullName: decoded.givenname,
       role: decoded.role,
-      refreshToken
+      refreshToken,
     };
   }
   /**
    * Clear all token data
    */
   static clearTokenData(): void {
-    localStorage.removeItem("token");        // Normal login
+    localStorage.removeItem("token"); // Normal login
     // localStorage.removeItem("authToken");    // Google OAuth
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("role");
     localStorage.removeItem("avatar");
     localStorage.removeItem("userId");
-    localStorage.removeItem("username");
-    sessionStorage.removeItem('chatbot-messages');
-    window.dispatchEvent(new Event('authChange'));
+    localStorage.removeItem("fullname");
+    window.dispatchEvent(new Event("authChange"));
   }
 
   /**
    * Check if user is authenticated
    */
   static isAuthenticated(): boolean {
-    const token = localStorage.getItem("token") || localStorage.getItem("authToken");
+    const token =
+      localStorage.getItem("token") || localStorage.getItem("authToken");
     if (!token) return false;
     return !this.isTokenExpired(token);
   }
