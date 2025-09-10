@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Features\Auth\OTP\**" />
+	  <Content Remove="Features\Auth\OTP\**" />
+	  <EmbeddedResource Remove="Features\Auth\OTP\**" />
+	  <None Remove="Features\Auth\OTP\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- Swagger / OpenAPI -->
 		<PackageReference Include="MediatR" Version="12.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
@@ -31,10 +38,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\BookLibrary.Domain\BookLibrary.Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Features\Auth\OTP\" />
 	</ItemGroup>
 
 </Project>

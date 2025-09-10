@@ -30,8 +30,9 @@ namespace BookLibrary.API.Features.Auth.Login
             if (user == null) throw new Exception("Tài khoản không tồn tại!");
 
             var checkLogin = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
-            if (!checkLogin.Succeeded) throw new Exception("Sai mật khẩu!");
+            if (!checkLogin.Succeeded) throw new Exception("Mật khẩu không chính xác!");
 
+            if (!user.IsActive) throw new Exception("Tài khoản của bạn đã bị khoá!");
             var accessToken = await _tokenService.GenerateAccessToken(user);
             var refreshToken = await _tokenService.GenerateRefreshToken();
             var userRole = await _userManager.GetRolesAsync(user);

@@ -20,7 +20,6 @@ const ResetPasswordPage: React.FC = () => {
     const tokenFromUrl = searchParams.get("token");
     if (tokenFromUrl) {
       setToken(tokenFromUrl);
-      console.log("Token from URL:", tokenFromUrl);
     } else {
       toast.error(
         "Không tìm thấy token trong URL. Vui lòng kiểm tra lại link!",

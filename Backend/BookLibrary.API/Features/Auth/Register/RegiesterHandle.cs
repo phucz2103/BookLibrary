@@ -44,13 +44,13 @@ namespace BookLibrary.API.Features.Auth.Register
             var createUser = await _userManager.CreateAsync(newUser, request.Password);
             if (!createUser.Succeeded) throw new Exception("Đăng ký không thành công, vui lòng thử lại!");
             
-            if(!await _roleManager.RoleExistsAsync(request.Role)){
-                await _roleManager.CreateAsync(new Role { Name = request.Role});
+            if(!await _roleManager.RoleExistsAsync("User")){
+                await _roleManager.CreateAsync(new Role { Name = "User" });
             }
 
             if (createUser.Succeeded)
             {
-                var userRole = await _userManager.AddToRoleAsync(newUser,request.Role);
+                var userRole = await _userManager.AddToRoleAsync(newUser, "User");
 
                 if (userRole.Succeeded)
                 {
