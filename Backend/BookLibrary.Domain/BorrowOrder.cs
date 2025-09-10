@@ -22,8 +22,7 @@ namespace BookLibrary.Domain
         [Required]
         public string Status { get; set; } = string.Empty;
 
-        [Required]
-        public int CreatedBy { get; set; }
+        public Guid CreatedBy { get; set; }
 
         public ICollection<BorrowDetail> BorrowDetails { get; set; } = new List<BorrowDetail>(); // 1 phiếu mượn có nhiều sách
         public Fine? Fine { get; set; }

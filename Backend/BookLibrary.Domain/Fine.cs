@@ -13,6 +13,7 @@ namespace BookLibrary.Domain
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
+        [Required]
         public string Status { get; set; } = "Unpaid";
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? PaidAt { get; set; }

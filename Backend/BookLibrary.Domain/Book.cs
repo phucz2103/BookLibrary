@@ -11,12 +11,17 @@ namespace BookLibrary.Domain
         [MaxLength(200)]
         public string Title { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(100)]
-        public string Author { get; set; } = string.Empty;
+        public Author Author { get; set; } = null!;
+        public int? AuthorId { get; set; } 
+
+        public Publishers? Publisher { get; set; }
+        public int? PublisherId { get; set; }
 
         [Required]
         public DateTime PublishedDate { get; set; }
+
+        [Required]
+        public string BookImg { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -33,8 +38,10 @@ namespace BookLibrary.Domain
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public DateTime LastUpdatedAt { get; set; }
+
         [Required]
-        public int CreatedBy { get; set; }
+        public Guid CreatedBy { get; set; }
 
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }

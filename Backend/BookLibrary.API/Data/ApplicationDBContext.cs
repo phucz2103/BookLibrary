@@ -3,7 +3,6 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace BookLibrary.Data
 {
@@ -18,6 +17,8 @@ namespace BookLibrary.Data
         public DbSet<BorrowOrder> BorrowOrders { get; set; }
         public DbSet<BorrowDetail> BorrowDetails { get; set; }
         public DbSet<Fine> Fines { get; set; }
+        public DbSet<Author> Author { get; set; }
+        public DbSet<Publishers> Publishers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -68,8 +69,21 @@ namespace BookLibrary.Data
                 entity.HasKey(ut => new { ut.UserId, ut.LoginProvider, ut.Name });
             });
 
-            builder.Entity<BorrowDetail>()
-                .HasKey(bd => new { bd.BorrowId, bd.BookId });
+            builder.Entity<BorrowDetail>(entity =>
+            {
+                entity.HasKey(bd => new { bd.BorrowId, bd.BookId });
+
+                entity.HasOne(bd => bd.Book)
+                      .WithMany(b => b.BorrowDetails)
+                      .HasForeignKey(bd => bd.BookId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(bd => bd.BorrowOrder)
+                      .WithMany(bo => bo.BorrowDetails)
+                      .HasForeignKey(bd => bd.BorrowId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+            });
 
             // Cấu hình bảng RefreshToken
             builder.Entity<RefreshToken>(entity =>
@@ -83,9 +97,7 @@ namespace BookLibrary.Data
                       .HasForeignKey(rt => rt.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
-            // Composite Key cho BorrowDetail
-            builder.Entity<BorrowDetail>()
-                .HasKey(bd => new { bd.BorrowId, bd.BookId });
+
             // Cấu hình bảng Category
             builder.Entity<Category>(entity =>
             {
@@ -101,6 +113,16 @@ namespace BookLibrary.Data
                       .WithMany(c => c.Books)
                       .HasForeignKey(b => b.CategoryId)
                       .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(b => b.Author)
+                      .WithMany(c => c.Books)
+                      .HasForeignKey(a => a.AuthorId)
+                      .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(b => b.Publisher)
+                      .WithMany(c => c.Books)
+                      .HasForeignKey(p => p.PublisherId)
+                      .OnDelete(DeleteBehavior.SetNull);
             });
             // Cấu hình bảng BorrowOrder
             builder.Entity<BorrowOrder>(entity =>
@@ -112,23 +134,6 @@ namespace BookLibrary.Data
                       .HasForeignKey(bo => bo.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
-            // Cấu hình bảng BorrowDetail
-            builder.Entity<BorrowDetail>(entity =>
-            {
-                entity.ToTable("BorrowDetails");
-                entity.HasKey(bd => new { bd.BorrowId, bd.BookId });
-
-                entity.HasOne(bd => bd.Book)
-                      .WithMany(b => b.BorrowDetails)
-                      .HasForeignKey(bd => bd.BookId)
-                      .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(bd => bd.BorrowOrder)
-                      .WithMany(bo => bo.BorrowDetails)
-                      .HasForeignKey(bd => bd.BorrowId)
-                      .OnDelete(DeleteBehavior.Cascade);
-            });
-
 
             builder.Entity<Fine>(entity =>
             {
@@ -140,6 +145,18 @@ namespace BookLibrary.Data
                       .HasForeignKey<Fine>(f => f.BorrowId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
+            builder.Entity<Author>(entity =>
+            {
+                entity.ToTable("Authors");
+                entity.HasKey(a => a.AuthorId);
+            });
+
+            builder.Entity<Publishers>(entity =>
+            {
+                entity.ToTable("Publishers");
+                entity.HasKey(p => p.PublisherId);
+            });
+
         }
     }
 }

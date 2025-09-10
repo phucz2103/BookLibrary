@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 		<!-- Swagger / OpenAPI -->
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="MediatR" Version="12.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
 
@@ -38,6 +39,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\BookLibrary.Domain\BookLibrary.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
 </Project>

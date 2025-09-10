@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250908065749_Init")]
-    partial class Init
+    [Migration("20250910050309_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,33 @@ namespace BookLibrary.API.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("BookLibrary.Domain.Author", b =>
+                {
+                    b.Property<int>("AuthorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AuthorId"));
+
+                    b.Property<string>("Biography")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("National")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("AuthorId");
+
+                    b.ToTable("Authors", (string)null);
+                });
+
             modelBuilder.Entity("BookLibrary.Domain.Book", b =>
                 {
                     b.Property<int>("BookId")
@@ -33,13 +60,15 @@ namespace BookLibrary.API.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("BookId"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<int>("AvailableQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("BookImg")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
@@ -58,6 +87,9 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("PublisherId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -72,7 +104,11 @@ namespace BookLibrary.API.Migrations
 
                     b.HasKey("BookId");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books", (string)null);
                 });
@@ -92,7 +128,7 @@ namespace BookLibrary.API.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BorrowDetails", (string)null);
+                    b.ToTable("BorrowDetails");
                 });
 
             modelBuilder.Entity("BookLibrary.Domain.BorrowOrder", b =>
@@ -106,8 +142,9 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -164,8 +201,8 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("PaidAt")
                         .HasColumnType("datetime(6)");
@@ -180,6 +217,27 @@ namespace BookLibrary.API.Migrations
                         .IsUnique();
 
                     b.ToTable("Fines", (string)null);
+                });
+
+            modelBuilder.Entity("BookLibrary.Domain.Publishers", b =>
+                {
+                    b.Property<int>("PublisherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PublisherId"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("PublisherId");
+
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
@@ -269,6 +327,9 @@ namespace BookLibrary.API.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -448,12 +509,26 @@ namespace BookLibrary.API.Migrations
 
             modelBuilder.Entity("BookLibrary.Domain.Book", b =>
                 {
+                    b.HasOne("BookLibrary.Domain.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("BookLibrary.Domain.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("BookLibrary.Domain.Publishers", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Author");
+
                     b.Navigation("Category");
+
+                    b.Navigation("Publisher");
                 });
 
             modelBuilder.Entity("BookLibrary.Domain.BorrowDetail", b =>
@@ -559,6 +634,11 @@ namespace BookLibrary.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BookLibrary.Domain.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
             modelBuilder.Entity("BookLibrary.Domain.Book", b =>
                 {
                     b.Navigation("BorrowDetails");
@@ -572,6 +652,11 @@ namespace BookLibrary.API.Migrations
                 });
 
             modelBuilder.Entity("BookLibrary.Domain.Category", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("BookLibrary.Domain.Publishers", b =>
                 {
                     b.Navigation("Books");
                 });

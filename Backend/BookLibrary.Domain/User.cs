@@ -10,6 +10,8 @@ public class User : IdentityUser<Guid>
     [MaxLength(100)]
     public string FullName { get; set; } = string.Empty;
 
+    public string? Avatar { get; set; }
+
     [Required]
     [EmailAddress]
     [MaxLength(100)]
