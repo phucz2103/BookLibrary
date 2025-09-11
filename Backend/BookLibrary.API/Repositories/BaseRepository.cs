@@ -1,14 +1,15 @@
 ﻿using BookLibrary.API.Data;
 using BookLibrary.API.IRepository;
+using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookLibrary.API.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private readonly IDBContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly DbSet<TEntity> _dbSet;
-        public BaseRepository(IDBContext context)
+        public BaseRepository( ApplicationDBContext context)
         {
             _context = context;
             _dbSet = _context.SetEntity<TEntity>(); 

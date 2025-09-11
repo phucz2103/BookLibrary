@@ -4,18 +4,18 @@ import { bookService } from "../../services/bookService";
 import StatCard from "../../components/Common/StatCard";
 import { Archive, Book, FileText, User } from "lucide-react";
 import BookTable from "../../components/books/BookTable";
+import { useLayoutContext } from "../../layouts/LayoutWrapper";
 
-interface DashboardProps {
-  searchTerm: string;
-}
-
-const BookDashboard: React.FC<DashboardProps> = ({ searchTerm }) => {
+const BookDashboard: React.FC = () => {
   const [stats, setStats] = useState<LibraryStats>({
     totalBooks: 0,
     totalReaders: 0,
     booksLent: 0,
     newBooks: 0,
   });
+
+  const { searchTerm } = useLayoutContext();
+
   const [books, setBooks] = useState<BookData[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {

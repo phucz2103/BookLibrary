@@ -4,7 +4,7 @@ export interface JWTPayload {
   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": string;
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname": string;
-  role_table_id: string;
+  Avatar: string;
   exp: number;
   iss: string;
   aud: string;
@@ -15,6 +15,7 @@ export interface DecodedToken {
   username: string;
   role: string;
   givenname: string;
+  avatar: string;
   exp: number;
   iss: string;
   aud: string;
@@ -53,6 +54,7 @@ export class TokenUtils {
           parsedPayload[
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
           ],
+        avatar: parsedPayload.Avatar,
         exp: parsedPayload.exp,
         iss: parsedPayload.iss,
         aud: parsedPayload.aud,
@@ -171,6 +173,7 @@ export class TokenUtils {
   static getUserData(): {
     token: string | null;
     userId: string | null;
+    avatar: string | null;
     fullName: string | null;
     role: string | null;
     refreshToken: string | null;
@@ -183,6 +186,7 @@ export class TokenUtils {
       return {
         token: null,
         userId: null,
+        avatar: null,
         fullName: null,
         role: null,
         refreshToken,
@@ -196,6 +200,7 @@ export class TokenUtils {
         token,
         userId: null,
         fullName: null,
+        avatar: null,
         role: null,
         refreshToken,
       };
@@ -205,6 +210,7 @@ export class TokenUtils {
       token,
       userId: decoded.userId,
       fullName: decoded.givenname,
+      avatar: decoded.avatar,
       role: decoded.role,
       refreshToken,
     };

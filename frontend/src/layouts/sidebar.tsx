@@ -14,22 +14,17 @@ import {
 interface SidebarProps {
   selectedMenu: string;
   onMenuSelect: (menuId: string) => void;
+  menuItems: MenuItem[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onMenuSelect }) => {
-  const menuItems: MenuItem[] = [
-    { id: "dashboard", icon: Home, label: "Trang chủ" },
-    { id: "books", icon: Book, label: "Quản lý Sách" },
-    { id: "readers", icon: Users, label: "Quản lý Độc giả" },
-    { id: "lending", icon: FileText, label: "Quản lý Mượn Sách" },
-    { id: "returns", icon: Calendar, label: "Quản lý Trả Sách" },
-    { id: "reports", icon: BarChart, label: "Báo cáo Thống kê" },
-    { id: "archive", icon: Archive, label: "Quản lý Kho" },
-    { id: "settings", icon: Settings, label: "Cài đặt" },
-  ];
+const Sidebar: React.FC<SidebarProps> = ({
+  selectedMenu,
+  onMenuSelect,
+  menuItems,
+}) => {
   return (
     <div className="w-64 bg-white shadow-lg">
-      <div className="p-6 ">
+      <div className="p-6 border-b">
         <h1 className="text-xl font-bold text-gray-800">QUẢN LÝ THƯ VIỆN</h1>
       </div>
 
