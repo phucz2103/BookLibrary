@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BookLibrary.Domain
+﻿namespace BookLibrary.Domain
 {
     public class BorrowDetail  // chi tiết phiếu mượn (mượn sách nào, số lượng bao nhiêu)
     {

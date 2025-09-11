@@ -5,7 +5,9 @@ import RegisterPage from "./pages/Auth/register";
 import { ToastContainer } from "react-toastify";
 import ForgotPasswordPage from "./pages/Auth/forgotPassword";
 import ResetPasswordPage from "./pages/Auth/resetpassword";
-import BookList from "./pages/BookPage/booklist";
+import BookList from "./pages/BookPage/BookList";
+import ProtectedRoute from "./components/Common/ProtectedRoute";// Add this import
+import BookDetailPage from "./pages/BookPage/BookDetail";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +18,11 @@ const App: React.FC = () => {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/" element={<BookList />} />
+        <Route path="/book/:id" element={
+            <ProtectedRoute>
+              <BookDetailPage />
+            </ProtectedRoute>
+          } />  
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
     </BrowserRouter>

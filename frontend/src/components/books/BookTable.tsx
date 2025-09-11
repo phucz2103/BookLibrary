@@ -1,5 +1,6 @@
 import type React from "react";
 import type { BookData } from "../../types/book";
+import { useNavigate } from "react-router-dom";
 
 interface BookTableProps {
   books: BookData[];
@@ -14,6 +15,7 @@ const BookTable: React.FC<BookTableProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const navigate = useNavigate();
   if (loading) {
     return (
       <div className="p-6 text-center">
@@ -89,11 +91,11 @@ const BookTable: React.FC<BookTableProps> = ({
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <button
-                  onClick={() => onEdit(book)}
-                  className="text-blue-600 hover:text-blue-900 mr-3"
-                >
-                  Sửa
-                </button>
+                onClick={() => navigate(`/book/${book.bookId}`)}
+                className="text-blue-600 hover:text-blue-900 mr-3"
+              >
+                Chi tiết
+              </button>
                 <button
                   onClick={() => onDelete(book.bookId)}
                   className="text-red-600 hover:text-red-900"
