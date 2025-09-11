@@ -35,6 +35,7 @@ namespace BookLibrary.API.Features.Auth.Register
             {
                 UserName = request.Username,
                 Email = request.Email,
+                Avatar = "abc",
                 FullName = request.FullName,
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,

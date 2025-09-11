@@ -29,7 +29,8 @@ namespace BookLibrary.Service
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.GivenName, user.FullName   )
+                new Claim(ClaimTypes.GivenName, user.FullName),
+                new Claim("Avatar", user.Avatar),
             };
 
             var roles = await _userManager.GetRolesAsync(user);

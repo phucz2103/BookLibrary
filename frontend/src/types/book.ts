@@ -3,9 +3,9 @@ export interface BookData {
   title: string;
   bookImg: string;
   author: string;
-  pushlisher: string;
+  pushliser: string;
   categoryName: string;
-  timePublish: string;
+  yearPublished: string;
   quantityAvailable: number;
 }
 

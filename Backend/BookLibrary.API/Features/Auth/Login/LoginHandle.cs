@@ -24,7 +24,7 @@ namespace BookLibrary.API.Features.Auth.Login
         }
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password)) throw new Exception("Vui lòng nhập thông tin bắt buộc!");
+                if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password)) throw new Exception("Vui lòng nhập thông tin bắt buộc!");
 
             var user = await _userManager.FindByNameAsync(request.Username);
             if (user == null) throw new Exception("Tài khoản không tồn tại!");

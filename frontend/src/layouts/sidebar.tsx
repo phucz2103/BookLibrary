@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onMenuSelect }) => {
   ];
   return (
     <div className="w-64 bg-white shadow-lg">
-      <div className="p-6 border-b">
+      <div className="p-6 ">
         <h1 className="text-xl font-bold text-gray-800">QUẢN LÝ THƯ VIỆN</h1>
       </div>
 

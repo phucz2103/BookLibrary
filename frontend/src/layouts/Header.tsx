@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({
   currentPageTitle,
 }) => {
   return (
-    <header className="bg-white shadow-sm border-b px-6 py-4">
+    <header className="bg-white shadow-sm px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <h2 className="text-2xl font-semibold text-gray-800">
