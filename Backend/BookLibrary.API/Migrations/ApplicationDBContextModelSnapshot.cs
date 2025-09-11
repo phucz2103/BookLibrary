@@ -73,9 +73,8 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -143,9 +142,8 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -202,8 +200,8 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("PaidAt")
                         .HasColumnType("datetime(6)");

@@ -9,20 +9,22 @@ export interface BookData {
   quantityAvailable: number;
 }
 
-export interface BookDetailData {
-  bookId: number;
-  bookImg: string;
-  title: string;
-  author: string;
-  publisher: string;
-  timePublish: string;
+export interface BookDetailData extends BookData {
   description: string;
-  categoryName: string;
-  quantity: number;
   quantityAvailable: number;
   status: string;
   createdAt: string;
   createdBy: string;
+}
+
+export interface BookBorrowHistory{
+  bookId: string;
+  readerId: string;
+  readerName: string;
+  borrowDate:string;
+  dueDate:string;
+  returnDate:string;
+  status:string;
 }
 
 export interface LibraryStats {

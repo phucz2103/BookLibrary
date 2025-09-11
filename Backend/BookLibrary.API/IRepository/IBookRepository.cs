@@ -9,7 +9,6 @@ namespace BookLibrary.API.IRepository
         Task AddBookAsync(Book book);
         Task UpdateBookAsync(Book book);
         Task DeleteBookAsync(int bookId);
-        Task<Book> GetBookByIdAsync(string bookId);
 
     }
 }

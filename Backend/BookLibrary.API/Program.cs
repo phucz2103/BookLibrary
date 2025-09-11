@@ -1,4 +1,5 @@
-﻿using BookLibrary.API.IRepository;
+﻿using BookLibrary.API.Data;
+using BookLibrary.API.IRepository;
 using BookLibrary.API.IService;
 using BookLibrary.API.Repositories;
 using BookLibrary.API.Service;
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
 // 1. Add DbContext MySQL
 // Add DbContext MySQL

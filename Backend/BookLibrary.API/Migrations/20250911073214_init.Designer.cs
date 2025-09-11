@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250910050309_init")]
+    [Migration("20250911073214_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -76,13 +76,16 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime(6)");
@@ -142,9 +145,8 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -201,8 +203,8 @@ namespace BookLibrary.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("PaidAt")
                         .HasColumnType("datetime(6)");

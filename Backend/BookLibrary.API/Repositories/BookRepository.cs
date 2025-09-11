@@ -33,12 +33,6 @@ namespace BookLibrary.API.Repositories
             var book =await  _context.Books.Include(b => b.Category).Include(b => b.Author).Include(b => b.Publisher).FirstOrDefaultAsync(b => b.BookId == bookId);
             return book;
         }
-
-        public Task<Book> GetBookByIdAsync(string bookId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task UpdateBookAsync(Book book)
         {
             throw new NotImplementedException();

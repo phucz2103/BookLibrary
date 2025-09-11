@@ -5,7 +5,12 @@ import RegisterPage from "./pages/Auth/register";
 import { ToastContainer } from "react-toastify";
 import ForgotPasswordPage from "./pages/Auth/forgotPassword";
 import ResetPasswordPage from "./pages/Auth/resetpassword";
-import BookList from "./pages/BookPage/booklist";
+import BookList from "./pages/BookPage/BookList";
+import ProtectedRoute from "./components/Common/ProtectedRoute"; // Add this import
+import BookDetailPage from "./pages/BookPage/BookDetail";
+import MainLayout from "./layouts/MainLayout";
+import { Layout } from "lucide-react";
+import LayoutWrapper from "./layouts/LayoutWrapper";
 
 const App: React.FC = () => {
   return (
@@ -15,7 +20,19 @@ const App: React.FC = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/" element={<BookList />} />
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <LayoutWrapper>
+                <Routes>
+                  <Route path="/" element={<BookList />} />
+                  <Route path="/book/:id" element={<BookDetailPage />} />
+                </Routes>
+              </LayoutWrapper>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
     </BrowserRouter>

@@ -150,7 +150,8 @@ namespace BookLibrary.API.Migrations
                     Status = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -213,8 +214,7 @@ namespace BookLibrary.API.Migrations
                     ReturnDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     Status = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedBy = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    CreatedBy = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -395,8 +395,7 @@ namespace BookLibrary.API.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     PaidAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    CreatedBy = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    CreatedBy = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {

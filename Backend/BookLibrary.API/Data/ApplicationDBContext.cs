@@ -19,6 +19,16 @@ namespace BookLibrary.Data
         public DbSet<Fine> Fines { get; set; }
         public DbSet<Author> Author { get; set; }
         public DbSet<Publishers> Publishers { get; set; }
+
+        public DbSet<TEntity> SetEntity<TEntity>() where TEntity : class
+        {
+            return Set<TEntity>();
+        }
+
+        public async Task<int> CommitChangesAsync()
+        {
+            return await SaveChangesAsync();
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
