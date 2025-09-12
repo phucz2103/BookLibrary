@@ -1,4 +1,5 @@
-﻿using BookLibrary.Domain;
+﻿using BookLibrary.API.Data;
+using BookLibrary.Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookLibrary.Data
 {
-    public class ApplicationDBContext : IdentityDbContext<User, Role, Guid>
+    public class ApplicationDBContext : IdentityDbContext<User, Role, Guid>, IDBContext
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
@@ -17,8 +18,8 @@ namespace BookLibrary.Data
         public DbSet<BorrowOrder> BorrowOrders { get; set; }
         public DbSet<BorrowDetail> BorrowDetails { get; set; }
         public DbSet<Fine> Fines { get; set; }
-        public DbSet<Author> Author { get; set; }
-        public DbSet<Publishers> Publishers { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publishers> Publisher { get; set; }
 
         public DbSet<TEntity> SetEntity<TEntity>() where TEntity : class
         {

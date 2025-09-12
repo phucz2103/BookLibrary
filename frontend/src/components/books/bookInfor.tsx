@@ -46,10 +46,10 @@ const BookDetail: React.FC<BookInforProps> = ({ book, onEdit }) => {
         </button>
       </div>
 
-      <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {/* Thông tin cơ bản */}
-          <div className="space-y-4">
+      <div className="p-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {/* Cột bên trái - Thông tin */}
+          <div className="md:col-span-2 space-y-4">
             <div className="flex items-center space-x-2">
               <Hash className="w-5 h-5 text-gray-500" />
               <span className="text-sm font-medium text-gray-600">
@@ -63,21 +63,19 @@ const BookDetail: React.FC<BookInforProps> = ({ book, onEdit }) => {
             <div className="flex items-center space-x-2">
               <Hash className="w-5 h-5 text-gray-500" />
               <span className="text-sm font-medium text-gray-600">
-                Ảnh sách:
+                Tên sách:
               </span>
-              <span className="text-sm text-gray-900 font-mono">
-                <img
-                  src={book.bookImg}
-                  alt="Book Image"
-                  className="w-[80px] h-auto mx-auto"
-                />
+              <span className="text-sm font-semibold text-gray-900 font-mono">
+                {book.title}
               </span>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {book.title}
-              </h3>
+            <div className="flex items-center space-x-2">
+              <BookOpen className="w-5 h-5 text-gray-500" />
+              <span className="text-sm font-medium text-gray-600">
+                Thể loại:
+              </span>
+              <span className="text-sm text-gray-900">{book.categoryName}</span>
             </div>
 
             <div className="flex items-center space-x-2">
@@ -93,7 +91,7 @@ const BookDetail: React.FC<BookInforProps> = ({ book, onEdit }) => {
               <span className="text-sm font-medium text-gray-600">
                 Nhà xuất bản:
               </span>
-              <span className="text-sm text-gray-900">{book.pushliser}</span>
+              <span className="text-sm text-gray-900">{book.publisher}</span>
             </div>
 
             <div className="flex items-center space-x-2">
@@ -104,6 +102,12 @@ const BookDetail: React.FC<BookInforProps> = ({ book, onEdit }) => {
               <span className="text-sm text-gray-900">
                 {book.yearPublished}
               </span>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <BookOpen className="w-5 h-5 text-gray-500" />
+              <span className="text-sm font-medium text-gray-600">Mô tả:</span>
+              <span className="text-sm text-gray-900">{book.description}</span>
             </div>
 
             {/* Thông tin chi tiết */}
@@ -121,27 +125,7 @@ const BookDetail: React.FC<BookInforProps> = ({ book, onEdit }) => {
                 </span>
               </div>
 
-              <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium text-gray-600">
-                  Thể loại:
-                </span>
-                <span className="text-sm text-gray-900">
-                  {book.categoryName}
-                </span>
-              </div>
-
-              {book.description && (
-                <div className="mt-6">
-                  <h4 className="text-sm font-medium text-gray-600 mb-2">
-                    Mô tả:
-                  </h4>
-                  <p className="text-sm text-gray-900 leading-relaxed">
-                    {book.description}
-                  </p>
-                </div>
-              )}
-
-              <div className="mt-6 pt-4 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-500">
+              <div className="mt-6 pt-4 border-t border-gray-200 grid grid-cols-1 text-left gap-4 text-xs text-gray-500">
                 <div>
                   <span className="font-medium">Ngày thêm:</span>{" "}
                   {new Date(book.createdAt).toLocaleDateString("vi-VN")}
@@ -153,6 +137,15 @@ const BookDetail: React.FC<BookInforProps> = ({ book, onEdit }) => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Cột bên phải - Ảnh */}
+          <div className="md:col-span-3 flex justify-center items-start">
+            <img
+              src={book.bookImg}
+              alt={book.title}
+              className="max-w-full h-auto rounded-lg shadow-lg"
+            />
           </div>
         </div>
       </div>

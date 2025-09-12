@@ -7,9 +7,9 @@ namespace BookLibrary.API.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private readonly ApplicationDBContext _context;
+        private readonly IDBContext _context;
         private readonly DbSet<TEntity> _dbSet;
-        public BaseRepository( ApplicationDBContext context)
+        public BaseRepository( IDBContext context)
         {
             _context = context;
             _dbSet = _context.SetEntity<TEntity>(); 

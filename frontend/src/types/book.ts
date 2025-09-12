@@ -3,7 +3,7 @@ export interface BookData {
   title: string;
   bookImg: string;
   author: string;
-  pushliser: string;
+  publisher: string;
   categoryName: string;
   yearPublished: string;
   quantityAvailable: number;
@@ -17,14 +17,14 @@ export interface BookDetailData extends BookData {
   createdBy: string;
 }
 
-export interface BookBorrowHistory{
+export interface BookBorrowHistory {
   bookId: string;
   readerId: string;
   readerName: string;
-  borrowDate:string;
-  dueDate:string;
-  returnDate:string;
-  status:string;
+  borrowDate: string;
+  dueDate: string;
+  returnDate: string;
+  status: string;
 }
 
 export interface LibraryStats {

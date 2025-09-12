@@ -14,7 +14,7 @@ namespace BookLibrary.API.Features.ListBook
         public string? CategoryName { get; set; }
         public int Quantity { get; set; }
         public int QuantityAvailable { get; set; }
-        public string? Status { get; set; }
+        public bool Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? CreatedBy { get; set; }
     }

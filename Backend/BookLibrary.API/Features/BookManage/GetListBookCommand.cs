@@ -37,7 +37,7 @@ namespace BookLibrary.API.Features.ListBook
                 Title = b.Title,
                 BookImg = b.BookImg,
                 Author = b.Author.Name,
-                Pushliser = b.Publisher.Name,
+                Publisher = b.Publisher.Name,
                 CategoryName = b.Category != null ? b.Category.Name : "khác",
                 YearPublished = b.PublishedDate.ToString("dd/MM/yyyy"),
                 QuantityAvailable = b.AvailableQuantity,

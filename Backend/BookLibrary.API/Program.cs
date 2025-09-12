@@ -24,6 +24,8 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IDBContext, ApplicationDBContext>();
+builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 
 // 1. Add DbContext MySQL
 // Add DbContext MySQL

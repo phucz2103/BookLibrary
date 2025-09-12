@@ -34,7 +34,7 @@ namespace BookLibrary.Domain
         public int AvailableQuantity { get; set; } = 0;
 
         [MaxLength(50)]
-        public string? Status { get; set; }
+        public bool Status { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

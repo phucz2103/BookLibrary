@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<!-- Swagger / OpenAPI -->
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="CloudinaryDotNet" Version="1.27.7" />
 		<PackageReference Include="MediatR" Version="12.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
 

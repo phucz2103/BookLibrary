@@ -63,22 +63,22 @@ const BookTable: React.FC<BookTableProps> = ({
             <tr key={book.bookId} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {book.bookId}
-              </td> 
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {book.title}
+              </td>
+              <td className="px-6 py-4 text-sm text-gray-900">
+                <p className="line-clamp-2">{book.title}</p>
               </td>
               <td className="text-center text-sm text-gray-900 align-middle">
                 <img
                   src={book.bookImg}
                   alt="Book Image"
-                  className="w-[80px] h-auto mx-auto"
+                  className="w-[100px] h-[150px] object-cover"
                 />
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 {book.author}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {book.pushliser}
+                {book.publisher}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 {book.yearPublished}
@@ -91,11 +91,11 @@ const BookTable: React.FC<BookTableProps> = ({
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <button
-                onClick={() => navigate(`/book/${book.bookId}`)}
-                className="text-blue-600 hover:text-blue-900 mr-3"
-              >
-                Chi tiết
-              </button>
+                  onClick={() => navigate(`/book/${book.bookId}`)}
+                  className="text-blue-600 hover:text-blue-900 mr-3"
+                >
+                  Chi tiết
+                </button>
                 <button
                   onClick={() => onDelete(book.bookId)}
                   className="text-red-600 hover:text-red-900"

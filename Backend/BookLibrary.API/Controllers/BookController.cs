@@ -1,6 +1,8 @@
-﻿using BookLibrary.API.Features.ListBook;
+﻿using BookLibrary.API.Features.BookManagement;
+using BookLibrary.API.Features.ListBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace BookLibrary.API.Controllers
 {
@@ -42,6 +44,24 @@ namespace BookLibrary.API.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost("create-book")]
+        public async Task<IActionResult> CreateBook([FromForm] CreateBookCommand request, CancellationToken cancellation)
+        {
+            try
+            {
+                var result = await _mediator.Send(request);
+                return result ? Ok("Tạo sách thành công") : BadRequest("Tạo sách thất bại");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, new { success = false, message = ex.Message, Innermessage = ex.InnerException });
             }
             catch (Exception ex)
             {
